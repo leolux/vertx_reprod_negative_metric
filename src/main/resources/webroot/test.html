@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Test View</title>
+        <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+        <script src="/js/vertxbus.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>This client creates and closes a websocket connection automatically.</div>
+        <div>The connection gets closed after the server replied to the message</div>
+        <script>
+			console.log('init eventbus');
+            var eb = new vertx.EventBus('http://localhost:8888/eventbus');
+            eb.onopen = function () {
+            	console.log('connected');
+            	eb.send('inbound.address', '{"blablub"}',function(reply){
+            		console.log('reply received from the server')
+            		console.log('Close websocket connection...');
+            		eb.close();
+            	});
+            	console.log('msg has been sent to the server');
+            }
+            eb.onclose = function(){
+            	console.log('Websocket is closed');
+            }
+            
+            eb.on
+        </script>
+    </body>
+</html>
